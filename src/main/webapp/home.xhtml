@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+   <h:head>
+        <title>Accueil Jakarta - Style Indonésien</title>
+        
+        <style type="text/css">
+            /* Définition des couleurs principales */
+            :root {
+                --couleur-rouge: #CE1126; /* Rouge du drapeau */
+                --couleur-blanc: #FFFFFF;
+                --couleur-texte: #333333;
+                --couleur-fond-clair: #f9f9f9;
+            }
+            
+            /* Style du corps de la page */
+            body {
+                font-family: 'Arial', sans-serif; /* Police simple et élégante */
+                background-color: var(--couleur-blanc); /* Fond blanc */
+                color: var(--couleur-texte);
+                margin: 0;
+                padding: 20px;
+                text-align: center; /* Centrer le contenu de la page */
+            }
+            
+            /* Style du titre */
+            h2 {
+                color: var(--couleur-rouge); /* Titre en rouge */
+                font-size: 2.5em;
+                border-bottom: 3px solid var(--couleur-rouge);
+                display: inline-block;
+                padding-bottom: 5px;
+                margin-bottom: 40px;
+            }
+            
+            /* Style pour les formulaires (conteneurs des boutons) */
+            .navigation-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px; /* Espacement entre les formulaires/boutons */
+                margin-top: 20px;
+            }
+            
+            /* Style des boutons de commande (h:commandButton) */
+            .bouton-drappeau {
+                /* Le style s'applique à la balise input générée */
+                background-color: var(--couleur-rouge);
+                color: var(--couleur-blanc);
+                border: 2px solid var(--couleur-rouge);
+                padding: 10px 30px;
+                font-size: 1.1em;
+                cursor: pointer;
+                border-radius: 8px; /* Coins arrondis */
+                transition: background-color 0.3s, border-color 0.3s;
+                min-width: 200px; /* Taille minimale pour l'uniformité */
+            }
+            
+            .bouton-drappeau:hover {
+                background-color: #B00A1F; /* Rouge légèrement plus foncé au survol */
+                border-color: #B00A1F;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        </style>
+    </h:head>
+    
+    <h:body>
+        
+        <h2>Bienvenue dans la page d'accueil</h2>
+        
+        <div class="navigation-container">
+            
+            <h:form>
+                <h:commandButton value="À propos" 
+                                 action="#{navigationController.voirApropos()}"
+                                 styleClass="bouton-drappeau"/>
+            </h:form>
+            
+            <h:form>
+                <h:commandButton value="Lieu" 
+                                 action="#{navigationController.voirLieu()}"
+                                 styleClass="bouton-drappeau"/>
+            </h:form>
+            
+        </div>
+        
+    </h:body>
+</html>

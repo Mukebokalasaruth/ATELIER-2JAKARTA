@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+    
+    <h:head>
+        <title>À propos de Jakarta</title>
+        
+        <style type="text/css">
+            /* Définition des couleurs principales */
+            :root {
+                --couleur-rouge: #CE1126; /* Rouge du drapeau */
+                --couleur-blanc: #FFFFFF;
+                --couleur-texte: #333333;
+                --couleur-fond-clair: #f9f9f9;
+            }
+            
+            /* Style du corps de la page */
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: var(--couleur-blanc);
+                color: var(--couleur-texte);
+                margin: 0;
+                padding: 40px 20px;
+            }
+            
+            /* Conteneur principal pour le contenu */
+            .conteneur-page {
+                max-width: 800px;
+                margin: 0 auto; /* Centrer le conteneur */
+                padding: 20px;
+                background-color: var(--couleur-fond-clair);
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            }
+            
+            /* Style du titre */
+            h2 {
+                color: var(--couleur-rouge);
+                font-size: 2.5em;
+                border-bottom: 3px solid var(--couleur-rouge);
+                padding-bottom: 5px;
+                margin-top: 0;
+                margin-bottom: 25px;
+                text-align: left;
+            }
+            
+            /* Style des paragraphes */
+            p {
+                line-height: 1.6;
+                margin-bottom: 20px;
+                text-align: justify;
+                font-size: 1.1em;
+            }
+            
+            /* Style du lien de retour */
+            .nav-link {
+                display: block;
+                margin-top: 30px;
+                font-size: 1.1em;
+                color: var(--couleur-rouge);
+                text-decoration: none;
+                font-weight: bold;
+            }
+            
+            .nav-link:hover {
+                text-decoration: underline;
+            }
+
+        </style>
+    </h:head>
+    
+    <h:body>
+        
+        <div class="conteneur-page">
+            
+            <h2>Bienvenue à Jakarta</h2>
+            
+            <p>
+                Jakarta est la capitale et la plus grande ville d'Indonésie. Située sur la côte nord-ouest de l'île de Java, elle est le centre économique, culturel et politique du pays. 
+                C'est une métropole vibrante et tentaculaire, connue pour son mélange fascinant de cultures, ses gratte-ciels modernes, ses quartiers historiques, et, bien sûr, sa circulation dense. 
+                La ville est un point focal de l'archipel, reflétant à la fois l'histoire coloniale et l'essor moderne de l'Indonésie.
+            </p>
+            
+            <h:outputLink value="../index.xhtml" styleClass="nav-link">
+                &#x2190; Retour à l'Accueil
+            </h:outputLink>
+            
+        </div>
+        
+    </h:body>
+</html>

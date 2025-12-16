@@ -1,167 +1,69 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    
- <head>
-        <title>Interface Ajouter Lieu (Statique)</title>
-        
-        <style type="text/css">
-            /* Définition des couleurs principales */
-            :root {
-                --couleur-rouge: #CE1126; 
-                --couleur-blanc: #FFFFFF;
-                --couleur-texte: #333333;
-                --couleur-fond-clair: #f9f9f9;
-            }
+<head>
+    <title>Gérer les Lieux</title>
+    <style type="text/css">
+        /* Vos styles CSS ici */
+        /* ... */
+        .lieu-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: var(--couleur-fond-clair);
+        }
+        .lieu-actions {
+            margin-top: 10px;
+        }
+        .button-modifier, .button-supprimer {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+        .button-modifier {
+            background-color: #4CAF50; /* Vert */
+            color: white;
+        }
+        .button-supprimer {
+            background-color: #f44336; /* Rouge */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gérer les Lieux</h2>
 
-            /* Style du corps de la page */
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: var(--couleur-blanc);
-                color: var(--couleur-texte);
-                margin: 0;
-                padding: 40px 20px;
-                text-align: center;
-            }
-            
-            /* Style du titre */
-            h2 {
-                color: var(--couleur-rouge);
-                font-size: 2.5em;
-                border-bottom: 3px solid var(--couleur-rouge);
-                display: inline-block;
-                padding-bottom: 5px;
-                margin-bottom: 30px;
-            }
+    <div class="form-container" style="width: 80%;">
+        <div class="lieu-item">
+            <h3>Nom du Lieu 1</h3>
+            <p>Description du lieu 1...</p>
+            <p>Latitude: 48.8584, Longitude: 2.2945</p>
+            <div class="lieu-actions">
+                <a href="#" class="button-modifier">Modifier</a>
+                <a href="#" class="button-supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?');">Supprimer</a>
+            </div>
+        </div>
 
-            .form-container {
-                width: 500px; /* Augmenté la largeur pour la disposition en 2 colonnes */
-                margin: 20px auto;
-                padding: 25px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                background-color: var(--couleur-fond-clair);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-                text-align: left;
-            }
-            
-            /* NOUVELLE STRUCTURE FLEXBOX POUR ALIGNER LABEL ET CHAMP */
-            .form-row {
-                /* Active Flexbox */
-                display: flex; 
-                /* Les éléments sont disposés sur une seule ligne */
-                align-items: flex-start; /* Alignement vertical en haut */
-                margin-bottom: 15px; 
-            }
-            
-            .form-row label {
-                font-weight: bold;
-                color: var(--couleur-texte);
-                /* Donne au label une largeur fixe pour l'alignement */
-                flex-basis: 150px; 
-                padding-top: 5px; /* Aligner le texte avec le haut du champ */
-                padding-right: 15px;
-                text-align: right;
-            }
-            
-            /* Conteneur pour le champ de saisie */
-            .input-field-container {
-                flex-grow: 1; /* Prend l'espace restant */
-            }
+        <div class="lieu-item">
+            <h3>Nom du Lieu 2</h3>
+            <p>Description du lieu 2...</p>
+            <p>Latitude: 51.5074, Longitude: -0.1278</p>
+            <div class="lieu-actions">
+                <a href="#" class="button-modifier">Modifier</a>
+                <a href="#" class="button-supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?');">Supprimer</a>
+            </div>
+        </div>
 
-            .input-field-container input[type="text"],
-            .input-field-container textarea {
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                width: 100%; /* S'étend sur toute la largeur de son conteneur */
-                box-sizing: border-box;
-                font-size: 1em;
-            }
-            
-            /* Style du bouton centré */
-            .button-container {
-                text-align: center; /* Centrer le bouton dans le conteneur */
-                margin-top: 25px;
-            }
-            
-            .button-submit {
-                background-color: var(--couleur-rouge);
-                color: var(--couleur-blanc);
-                border: none;
-                padding: 10px 25px;
-                font-size: 1.1em;
-                cursor: pointer;
-                border-radius: 6px;
-                transition: background-color 0.3s;
-            }
-            
-            .button-submit:hover {
-                background-color: #B00A1F;
-            }
+    </div>
 
-            .nav-link {
-                margin-top: 30px;
-                display: block;
-                color: var(--couleur-rouge);
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 1.1em;
-            }
-            
-            .nav-link:hover {
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    
-    <body>
-        
-        <h2>Ajouter un Nouveau Lieu</h2>
-        
-        <div class="form-container">
-
-            <form action="#">
-                
-                                <div class="form-row">
-                    <label for="nom">Nom du Lieu :</label>
-                    <div class="input-field-container">
-                        <input type="text" id="nom" name="nom" />
-                    </div>
-                </div>
-                
-                                <div class="form-row">
-                    <label for="description">Description :</label>
-                    <div class="input-field-container">
-                                                <textarea id="description" name="description" rows="4"></textarea> 
-                    </div>
-                </div>
-                
-                                <div class="form-row">
-                    <label for="latitude">Latitude (ex: 48.8584) :</label>
-                    <div class="input-field-container">
-                        <input type="text" id="latitude" name="latitude" />
-                    </div>
-                </div>
-                
-                                <div class="form-row">
-                    <label for="longitude">Longitude (ex: 2.2945) :</label>
-                    <div class="input-field-container">
-                        <input type="text" id="longitude" name="longitude" />
-                    </div>
-                </div>
-                
-                <div class="button-container">
-                    <button type="submit" class="button-submit">Enregistrer le Lieu</button>
-                </div>
-                
-            </form>
-
-        </div>
-        
-       <a href="../index.xhtml" class="nav-link">
-            &#x2190; Retourner à l'Accueil
-       </a>
-        
-    </body>
+    <a href="ajouter_lieu.html" class="nav-link">
+        Ajouter un nouveau lieu
+    </a>
+    <a href="../index.xhtml" class="nav-link">
+        &#x2190; Retourner à l'Accueil
+    </a>
+</body>
 </html>

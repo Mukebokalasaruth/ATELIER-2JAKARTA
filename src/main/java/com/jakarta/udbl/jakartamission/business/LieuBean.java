@@ -2,17 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package com.jakarta.udbl.jakartamission.business;
 
-// ATTENTION : Assurez-vous d'importer la bonne entité Lieu
 import com.jakarta.udbl.jakartamission.entities.Lieu;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-// Si vous souhaitez utiliser la validation standard Java (recommandé) :
-// import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,25 +16,22 @@ import java.util.List;
 @RequestScoped
 public class LieuBean implements Serializable {
 
-    // NOTE SUR LA VALIDATION :
-    // Au lieu de faire des 'if' dans la méthode ajouterLieu,
-    // il est recommandé d'utiliser des annotations ici, par exemple :
-    // @NotEmpty(message = "Le nom est obligatoire")
+    // CORRECTION : Utilisation de Integer au lieu de Long
+    private Integer id; 
+    
     private String nom;
-
-    // @NotEmpty(message = "La description est obligatoire")
     private String description;
-
     private double longitude;
     private double latitude;
-
-    // CORRECTION 2 : Suppression de la liste 'lieux' qui était inutile ici
-    // car le getter appelle directement le service.
+    private List<Lieu> lieux;
 
     @Inject
     private LieuEntrepriseBean lieuEntrepriseBean;
 
-    // --- Getters et Setters pour les champs du formulaire ---
+    // --- Getters et Setters ---
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
+
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
 
@@ -51,44 +44,48 @@ public class LieuBean implements Serializable {
     public double getLatitude() { return latitude; }
     public void setLatitude(double latitude) { this.latitude = latitude; }
 
-
-    // --- Méthodes métier utilisées par la vue JSF ---
-
-    /**
-     * Méthode appelée par <h:dataTable value="#{lieuBean.lieux}" ...>
-     * CORRECTION 1 : Le type de retour doit être List<Lieu> (l'entité),
-     * et non pas List<LieuBean> (le contrôleur).
-     * @return 
-     */
-    // LA MÉTHODE MANQUANTE DOIT ÊTRE ICI :
-    public List<Lieu> listerTousLesLieux() {
-        // Exemple d'implémentation JPA :
-        // return em.createQuery("SELECT l FROM Lieu l", Lieu.class).getResultList();
-        return null; // (Code temporaire si vous n'avez pas encore la BDD)
+    public List<Lieu> getLieux() {
+        return lieuEntrepriseBean.listerTousLesLieux();
     }
 
-    /**
-     * Méthode appelée par <h:commandButton action="#{lieuBean.ajouterLieu}" ...>
-     */
+    // --- Actions ---
+
     public void ajouterLieu() {
-        // Validation manuelle (Si vous n'utilisez pas @NotEmpty ou required="true" dans le JSF)
-        if (nom != null && !nom.isEmpty() && description != null && !description.isEmpty()) {
-
+        if (nom != null && !nom.isEmpty()) {
             lieuEntrepriseBean.ajouterLieuEntreprise(nom, description, latitude, longitude);
-
-            // AMÉLIORATION 4 : Ajout d'un message de succès pour l'utilisateur
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", "Le lieu a été ajouté."));
-
-            // Comme le bean est @RequestScoped, les champs (nom, description...)
-            // seront automatiquement vidés au prochain affichage de la page,
-            // ce qui est le comportement désiré après un ajout réussi.
-
-        } else {
-             // AMÉLIORATION : Message d'erreur si la validation manuelle échoue
-             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Le nom et la description sont obligatoires."));
+            reinitialiserFormulaire();
         }
     }
+
+    // CORRECTION : Paramètre Integer
+    public void supprimer(Integer idASupprimer) {
+        lieuEntrepriseBean.supprimerLieu(idASupprimer);
+    }
+
+    // CORRECTION : Paramètre Integer
+    public void chargerPourModification(Integer idAModifier) {
+        Lieu lieu = lieuEntrepriseBean.trouverLieu(idAModifier);
+        if (lieu != null) {
+            // C'est ici que l'erreur se produisait avant (int -> Long impossible)
+            // Maintenant (int -> Integer) c'est valide.
+            this.id = lieu.getId(); 
+            this.nom = lieu.getNom();
+            this.description = lieu.getDescription();
+            this.latitude = lieu.getLatitude();
+            this.longitude = lieu.getLongitude();
+        }
+    }
+
+    public void modifier() {
+        lieuEntrepriseBean.modifierLieu(id, nom, description, latitude, longitude);
+        reinitialiserFormulaire();
+    }
     
+    private void reinitialiserFormulaire() {
+        this.id = null;
+        this.nom = null;
+        this.description = null;
+        this.latitude = 0.0;
+        this.longitude = 0.0;
+    }
 }

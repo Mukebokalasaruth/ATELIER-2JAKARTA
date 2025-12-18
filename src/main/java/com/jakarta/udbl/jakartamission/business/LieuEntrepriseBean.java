@@ -1,34 +1,57 @@
-// ---- LA CORRECTION ----
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/StatelessEjbClass.java to edit this template
+ */
+
 package com.jakarta.udbl.jakartamission.business;
 
-// IMPORTANT : Importez la classe d'entité (celle qui va en base de données)
 import com.jakarta.udbl.jakartamission.entities.Lieu;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 
-@Stateless // Ou @RequestScoped si c'est un bean CDI simple
+@Stateless
 public class LieuEntrepriseBean {
 
-   @PersistenceContext(unitName = "my_persistence_unit")
-private EntityManager em;
+    @PersistenceContext(unitName = "indonesiatPU")
+    private EntityManager em;
 
-    // La méthode reçoit les données brutes
-    public void ajouterLieuEntreprise(String nom, String description, double lat, double lon) {
-
-        // 1. Créer une instance de l'ENTITÉ (Lieu), pas du Bean JSF (LieuBean)
-        Lieu nouveauLieuEntity = new Lieu();
-
-        // 2. Remplir les données via les setters
-        // (L'entité Lieu doit avoir ces setters)
-        nouveauLieuEntity.setNom(nom);
-        nouveauLieuEntity.setDescription(description);
-        nouveauLieuEntity.setLatitude(lat);
-        nouveauLieuEntity.setLongitude(lon);
-
-        // 3. Sauvegarder l'entité en base de données
-        em.persist(nouveauLieuEntity);
+    public void ajouterLieuEntreprise(String nom, String description, double latitude, double longitude) {
+        Lieu lieu = new Lieu();
+        lieu.setNom(nom);
+        lieu.setDescription(description);
+        lieu.setLatitude(latitude);
+        lieu.setLongitude(longitude);
+        em.persist(lieu);
     }
 
-    // ... le reste de la classe, comme listerTousLesLieux ...
+    public List<Lieu> listerTousLesLieux() {
+        return em.createQuery("SELECT l FROM Lieu l", Lieu.class).getResultList();
+    }
+
+    // CORRECTION : Integer ici
+    public Lieu trouverLieu(Integer id) {
+        return em.find(Lieu.class, id);
+    }
+
+    // CORRECTION : Integer ici
+    public void modifierLieu(Integer id, String nom, String description, double latitude, double longitude) {
+        Lieu lieu = em.find(Lieu.class, id);
+        if (lieu != null) {
+            lieu.setNom(nom);
+            lieu.setDescription(description);
+            lieu.setLatitude(latitude);
+            lieu.setLongitude(longitude);
+            em.merge(lieu);
+        }
+    }
+
+    // CORRECTION : Integer ici
+    public void supprimerLieu(Integer id) {
+        Lieu lieu = em.find(Lieu.class, id);
+        if (lieu != null) {
+            em.remove(lieu);
+        }
+    }
 }

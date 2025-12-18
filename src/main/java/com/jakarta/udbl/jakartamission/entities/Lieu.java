@@ -4,29 +4,27 @@
  */
 package com.jakarta.udbl.jakartamission.entities;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-/**
- *
- * @author user
- */
+import java.io.Serializable; // C'est une bonne pratique d'ajouter ceci
 
 @Entity
 @Table(name = "lieu")
-public class Lieu {
+public class Lieu implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id; // CHANGEMENT : int -> Integer
+
     private String nom;
+    @Column(name="descripton") 
     private String description;
     private double longitude;
     private double latitude;
-
 
     public Lieu() {
     }
@@ -37,7 +35,18 @@ public class Lieu {
         this.longitude = longitude;
         this.latitude = latitude;
     }
-    public int getId() { return id; }
+
+    // --- GETTERS ET SETTERS ---
+
+    public Integer getId() { 
+        return id; 
+    }
+
+    // AJOUT IMPORTANT : Le Setter manquant
+    public void setId(Integer id) { 
+        this.id = id; 
+    }
+
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
 

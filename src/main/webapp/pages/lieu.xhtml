@@ -1,69 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Gérer les Lieux</title>
-    <style type="text/css">
-        /* Vos styles CSS ici */
-        /* ... */
-        .lieu-item {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            background-color: var(--couleur-fond-clair);
-        }
-        .lieu-actions {
-            margin-top: 10px;
-        }
-        .button-modifier, .button-supprimer {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-            margin-right: 10px;
-        }
-        .button-modifier {
-            background-color: #4CAF50; /* Vert */
-            color: white;
-        }
-        .button-supprimer {
-            background-color: #f44336; /* Rouge */
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <h2>Gérer les Lieux</h2>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    
+    <h:head>
+        <title>Gestion des Lieux</title>
+        <style>
+            /* Un peu de CSS pour rendre le tableau lisible */
+            table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+            .form-container { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; background-color: #f9f9f9; }
+            .btn { cursor: pointer; padding: 5px 10px; margin-right: 5px; }
+            .btn-danger { background-color: #ffcccc; color: red; border: 1px solid red; }
+            .btn-edit { background-color: #cce5ff; color: blue; border: 1px solid blue; }
+        </style>
+    </h:head>
+    
+    <h:body>
+        <h1>Gestion des Lieux de Mission</h1>
 
-    <div class="form-container" style="width: 80%;">
-        <div class="lieu-item">
-            <h3>Nom du Lieu 1</h3>
-            <p>Description du lieu 1...</p>
-            <p>Latitude: 48.8584, Longitude: 2.2945</p>
-            <div class="lieu-actions">
-                <a href="#" class="button-modifier">Modifier</a>
-                <a href="#" class="button-supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?');">Supprimer</a>
-            </div>
+        <div class="form-container">
+            <h3>Formulaire</h3>
+            <h:form id="formLieu">
+                <h:inputHidden value="#{lieuBean.id}" />
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Nom :" for="nom" />
+                    <h:inputText id="nom" value="#{lieuBean.nom}" required="true" requiredMessage="Le nom est obligatoire"/>
+
+                    <h:outputLabel value="Description :" for="desc" />
+                    <h:inputTextarea id="desc" value="#{lieuBean.description}" cols="30" rows="3" />
+
+                    <h:outputLabel value="Latitude :" for="lat" />
+                    <h:inputText id="lat" value="#{lieuBean.latitude}" />
+
+                    <h:outputLabel value="Longitude :" for="lon" />
+                    <h:inputText id="lon" value="#{lieuBean.longitude}" />
+                </h:panelGrid>
+
+                <br/>
+
+                <h:commandButton value="Ajouter le lieu" 
+                                 action="#{lieuBean.ajouterLieu()}" 
+                                 rendered="#{lieuBean.id == null}"
+                                 styleClass="btn" />
+
+                <h:commandButton value="Enregistrer les modifications" 
+                                 action="#{lieuBean.modifier()}" 
+                                 rendered="#{lieuBean.id != null}"
+                                 styleClass="btn btn-edit" />
+                
+                <h:commandButton value="Annuler" 
+                                 action="#{lieuBean.ajouterLieu()}" 
+                                 rendered="#{lieuBean.id != null}"
+                                 onclick="location.reload();"
+                                 styleClass="btn" />
+            </h:form>
         </div>
 
-        <div class="lieu-item">
-            <h3>Nom du Lieu 2</h3>
-            <p>Description du lieu 2...</p>
-            <p>Latitude: 51.5074, Longitude: -0.1278</p>
-            <div class="lieu-actions">
-                <a href="#" class="button-modifier">Modifier</a>
-                <a href="#" class="button-supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?');">Supprimer</a>
-            </div>
-        </div>
+        <hr/>
 
-    </div>
+        <h3>Liste des lieux existants</h3>
+        <h:form id="tableForm">
+            <h:dataTable value="#{lieuBean.lieux}" var="item" styleClass="table">
+                
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{item.id}
+                </h:column>
 
-    <a href="ajouter_lieu.html" class="nav-link">
-        Ajouter un nouveau lieu
-    </a>
-    <a href="../index.xhtml" class="nav-link">
-        &#x2190; Retourner à l'Accueil
-    </a>
-</body>
+                <h:column>
+                    <f:facet name="header">Nom</f:facet>
+                    #{item.nom}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    #{item.description}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Coordonnées</f:facet>
+                    #{item.latitude}, #{item.longitude}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    
+                    <h:commandButton value="Modifier" 
+                                     action="#{lieuBean.chargerPourModification(item.id)}" 
+                                     styleClass="btn btn-edit" />
+                    
+                    <h:commandButton value="Supprimer" 
+                                     action="#{lieuBean.supprimer(item.id)}" 
+                                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?');"
+                                     styleClass="btn btn-danger" />
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
 </html>

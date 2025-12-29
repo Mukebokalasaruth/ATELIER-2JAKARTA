@@ -16,31 +16,33 @@ public class UtilisateurEntrepriseBean {
     @PersistenceContext
     private EntityManager em;
 
+    // --- VOTRE NOUVELLE MÉTHODE ---
+    public Utilisateur authentifier(String email, String password){
+        Utilisateur utilisateur = this.trouverUtilisateurParEmail(email);
+        if (utilisateur != null && this.verifierMotDePasse(password, utilisateur.getPassword())){
+            return utilisateur;
+            }
+        return null;
+        
+    }
+
+    public boolean verifierMotDePasse(String password, String hashedPassword) { 
+        return BCrypt.checkpw(password, hashedPassword); 
+    }
+
+    // ------------------------------
+
     @Transactional
     public void ajouterUtilisateurEntreprise(String username, String email, String password, String description) {
-
-        // Vérification si l’email existe
         if (trouverUtilisateurParEmail(email) != null) {
             throw new IllegalArgumentException("Cet email existe déjà.");
         }
-
-        // Vérification du username
         if (trouverUtilisateurParNom(username) != null) {
             throw new IllegalArgumentException("Ce nom d'utilisateur existe déjà.");
         }
-
-        // Hashage mot de passe
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-        // Création objet utilisateur
         Utilisateur utilisateur = new Utilisateur(username, email, hashedPassword, description);
-
-        // Persistance BDD
         em.persist(utilisateur);
-    }
-
-    public boolean verifierMotDePasse(String password, String hashedPassword) {
-        return BCrypt.checkpw(password, hashedPassword);
     }
 
     public List<Utilisateur> listerTousLesUtilisateurs() {
@@ -77,5 +79,9 @@ public class UtilisateurEntrepriseBean {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public void mettreAJour(Utilisateur utilisateur) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -8,7 +8,6 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.IOException;
-
 /**
  *
  * @author mukebo
@@ -17,20 +16,18 @@ import java.io.IOException;
 @RequestScoped
 
 public class NavigationBean {
-    public void voirApropos(){
+    public void allerVers(String lien) {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("pages/a_propos.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .redirect(lien);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } 
-    
-    public void voirLieu(){
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("pages/lieu.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }  
-    
+    }
+    public void apropos() {
+        this.allerVers("pages/a_propos.xhtml");
+    }
+    public void lieu() {
+        this.allerVers("pages/lieu.xhtml");
+    }
 }

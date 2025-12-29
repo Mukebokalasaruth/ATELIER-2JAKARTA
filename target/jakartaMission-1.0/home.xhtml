@@ -16,17 +16,17 @@
             
             /* Style du corps de la page */
             body {
-                font-family: 'Arial', sans-serif; /* Police simple et élégante */
-                background-color: var(--couleur-blanc); /* Fond blanc */
+                font-family: 'Arial', sans-serif;
+                background-color: var(--couleur-blanc);
                 color: var(--couleur-texte);
                 margin: 0;
                 padding: 20px;
-                text-align: center; /* Centrer le contenu de la page */
+                text-align: center;
             }
             
             /* Style du titre */
             h2 {
-                color: var(--couleur-rouge); /* Titre en rouge */
+                color: var(--couleur-rouge);
                 font-size: 2.5em;
                 border-bottom: 3px solid var(--couleur-rouge);
                 display: inline-block;
@@ -34,33 +34,38 @@
                 margin-bottom: 40px;
             }
             
-            /* Style pour les formulaires (conteneurs des boutons) */
+            /* Style pour le conteneur des boutons */
             .navigation-container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 15px; /* Espacement entre les formulaires/boutons */
+                gap: 15px;
                 margin-top: 20px;
             }
             
-            /* Style des boutons de commande (h:commandButton) */
+            /* Style des boutons (appliqué maintenant aux liens h:link) */
             .bouton-drappeau {
-                /* Le style s'applique à la balise input générée */
                 background-color: var(--couleur-rouge);
                 color: var(--couleur-blanc);
                 border: 2px solid var(--couleur-rouge);
                 padding: 10px 30px;
                 font-size: 1.1em;
                 cursor: pointer;
-                border-radius: 8px; /* Coins arrondis */
+                border-radius: 8px;
                 transition: background-color 0.3s, border-color 0.3s;
-                min-width: 200px; /* Taille minimale pour l'uniformité */
+                min-width: 200px;
+                
+                /* Nouveaux styles pour que le lien ressemble à un bouton */
+                text-decoration: none; /* Enlève le soulignement du lien */
+                display: inline-block; /* Permet de donner une taille au lien */
+                font-weight: bold;
             }
             
             .bouton-drappeau:hover {
-                background-color: #B00A1F; /* Rouge légèrement plus foncé au survol */
+                background-color: #B00A1F;
                 border-color: #B00A1F;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                color: #fff; /* S'assure que le texte reste blanc */
             }
 
         </style>
@@ -72,17 +77,13 @@
         
         <div class="navigation-container">
             
-            <h:form>
-                <h:commandButton value="À propos" 
-                                 action="#{navigationController.voirApropos()}"
-                                 styleClass="bouton-drappeau"/>
-            </h:form>
+            <h:link value="À propos" 
+                    outcome="/pages/a_propos" 
+                    styleClass="bouton-drappeau"/>
             
-            <h:form>
-                <h:commandButton value="Lieu" 
-                                 action="#{navigationController.voirLieu()}"
-                                 styleClass="bouton-drappeau"/>
-            </h:form>
+            <h:link value="Lieu" 
+                    outcome="/pages/lieu" 
+                    styleClass="bouton-drappeau"/>
             
         </div>
         

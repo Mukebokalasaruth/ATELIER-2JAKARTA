@@ -2,90 +2,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
-   <h:head>
-        <title>Accueil Jakarta - Style Indonésien</title>
-        
-        <style type="text/css">
-            /* Définition des couleurs principales */
-            :root {
-                --couleur-rouge: #CE1126; /* Rouge du drapeau */
-                --couleur-blanc: #FFFFFF;
-                --couleur-texte: #333333;
-                --couleur-fond-clair: #f9f9f9;
-            }
-            
-            /* Style du corps de la page */
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: var(--couleur-blanc);
-                color: var(--couleur-texte);
-                margin: 0;
-                padding: 20px;
-                text-align: center;
-            }
-            
-            /* Style du titre */
-            h2 {
-                color: var(--couleur-rouge);
-                font-size: 2.5em;
-                border-bottom: 3px solid var(--couleur-rouge);
-                display: inline-block;
-                padding-bottom: 5px;
-                margin-bottom: 40px;
-            }
-            
-            /* Style pour le conteneur des boutons */
-            .navigation-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                margin-top: 20px;
-            }
-            
-            /* Style des boutons (appliqué maintenant aux liens h:link) */
-            .bouton-drappeau {
-                background-color: var(--couleur-rouge);
-                color: var(--couleur-blanc);
-                border: 2px solid var(--couleur-rouge);
-                padding: 10px 30px;
-                font-size: 1.1em;
-                cursor: pointer;
-                border-radius: 8px;
-                transition: background-color 0.3s, border-color 0.3s;
-                min-width: 200px;
-                
-                /* Nouveaux styles pour que le lien ressemble à un bouton */
-                text-decoration: none; /* Enlève le soulignement du lien */
-                display: inline-block; /* Permet de donner une taille au lien */
-                font-weight: bold;
-            }
-            
-            .bouton-drappeau:hover {
-                background-color: #B00A1F;
-                border-color: #B00A1F;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                color: #fff; /* S'assure que le texte reste blanc */
-            }
-
-        </style>
+    <h:head>
+        <title>HOME</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </h:head>
-    
-    <h:body>
-        
-        <h2>Bienvenue dans la page d'accueil</h2>
-        
-        <div class="navigation-container">
-            
-            <h:link value="À propos" 
-                    outcome="/pages/a_propos" 
-                    styleClass="bouton-drappeau"/>
-            
-            <h:link value="Lieu" 
-                    outcome="/pages/lieu" 
-                    styleClass="bouton-drappeau"/>
-            
+
+    <h:body class="bg-light">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">UDBL - JSF Mission</a>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <div class="card shadow p-4">
+                <div class="row align-items-center">
+
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"
+                             alt="Drapeau Indonésie" 
+                             class="img-fluid border border-1 border-secondary rounded"
+                             style="width: 150px;" />
+                    </div>
+
+                    <div class="col-md-8">
+                        <h4 class="mb-4">Bienvenue en Indonésie</h4>
+
+                        <h:form styleClass="d-flex gap-2">
+                            <h:commandButton value="Ajouter un lieu"
+                                             action="#{navigationBean.ajouterLieu}"
+                                             styleClass="btn btn-danger btn-lg" />
+
+                            <h:commandButton value="Visiter" 
+                                             action="pages/visite"
+                                             styleClass="btn btn-outline-danger btn-lg" />
+
+                            <h:commandButton value="A propos" 
+                                             action="#{navigationBean.voirApropos}"
+                                             styleClass="btn btn-outline-danger btn-lg" />
+                        </h:form>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        
+
     </h:body>
 </html>

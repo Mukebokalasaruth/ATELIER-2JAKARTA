@@ -18,7 +18,7 @@ public class Lieu implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // CHANGEMENT : int -> Integer
+    private Long id; 
 
     private String nom;
     @Column(name="descripton") 
@@ -38,12 +38,12 @@ public class Lieu implements Serializable {
 
     // --- GETTERS ET SETTERS ---
 
-    public Integer getId() { 
+    public Long getId() { 
         return id; 
     }
 
     // AJOUT IMPORTANT : Le Setter manquant
-    public void setId(Integer id) { 
+    public void setId(Long id) { 
         this.id = id; 
     }
 

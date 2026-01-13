@@ -47,10 +47,9 @@
                                  rendered="#{lieuBean.id == null}"
                                  styleClass="btn" />
 
-                <h:commandButton value="Enregistrer les modifications" 
-                                 action="#{lieuBean.modifier()}" 
-                                 rendered="#{lieuBean.id != null}"
-                                 styleClass="btn btn-edit" />
+                <h:commandButton value="Enregistrer le lieu" 
+                                 action="#{lieuBean.enregistrerNouveauLieu}" 
+                                 styleClass="btn btn-primary" />
                 
                 <h:commandButton value="Annuler" 
                                  action="#{lieuBean.ajouterLieu()}" 
@@ -64,42 +63,36 @@
 
         <h3>Liste des lieux existants</h3>
         <h:form id="tableForm">
-            <h:dataTable value="#{lieuBean.lieux}" var="item" styleClass="table">
-                
-                <h:column>
-                    <f:facet name="header">ID</f:facet>
-                    #{item.id}
-                </h:column>
+            <h:dataTable value="#{lieuBean.lieux}" var="l"> <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{l.id} </h:column>
 
                 <h:column>
                     <f:facet name="header">Nom</f:facet>
-                    #{item.nom}
-                </h:column>
+                    #{l.nom} </h:column>
 
                 <h:column>
                     <f:facet name="header">Description</f:facet>
-                    #{item.description}
-                </h:column>
+                    #{l.description} </h:column>
 
                 <h:column>
                     <f:facet name="header">Coordonnées</f:facet>
-                    #{item.latitude}, #{item.longitude}
-                </h:column>
+                        #{l.latitude}, #{l.longitude} </h:column>
 
                 <h:column>
                     <f:facet name="header">Actions</f:facet>
-                    
-                    <h:commandButton value="Modifier" 
-                                     action="#{lieuBean.chargerPourModification(item.id)}" 
-                                     styleClass="btn btn-edit" />
-                    
-                    <h:commandButton value="Supprimer" 
-                                     action="#{lieuBean.supprimer(item.id)}" 
-                                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?');"
-                                     styleClass="btn btn-danger" />
-                </h:column>
+        
+                <h:commandButton value="Modifier" 
+                         action="#{lieuBean.chargerPourModification(l.id)}" 
+                         styleClass="btn btn-edit" />
+        
+            <h:commandButton value="Supprimer" 
+                         action="#{lieuBean.supprimer(l.id)}" 
+                         onclick="return confirm('Êtes-vous sûr ?');"
+                         styleClass="btn btn-danger" />
+            </h:column>
 
-            </h:dataTable>
+        </h:dataTable>
         </h:form>
 
     </h:body>

@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="jakarta.faces.html" 
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Visite de Lieux</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+</h:head>
+<h:body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">UDBL - Visite de Lieux</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="card shadow p-4 mb-4">
+            <h2 class="mb-4">Préparer votre visite</h2>
+
+            <h:form id="visiteForm">
+                <div class="mb-3">
+                    <h:outputLabel value="Choisir un lieu :" for="lieuSearch" class="form-label fw-bold" />
+                    <h:inputText id="lieuSearch" value="#{lieuBean.nomSelectionne}" 
+                                 list="listeLieux" styleClass="form-control">
+                        <f:ajax event="change" listener="#{lieuBean.onLieuSelected}" render="weatherResult" />
+                    </h:inputText>
+
+                    <datalist id="listeLieux">
+                        <f:selectItems value="#{lieuEntrepriseBean.listerTousLesLieux()}" 
+                                       var="l" itemLabel="#{l.nom}" itemValue="#{l.nom}" />
+                    </datalist>
+                </div>
+
+                <h:panelGroup id="weatherResult">
+                    <div class="mt-4 p-3 border rounded bg-white">
+                        <h5 class="text-secondary border-bottom pb-2">Informations Météo</h5>
+                        
+                        <h:panelGroup rendered="#{not empty lieuBean.weatherMessage}">
+                            <div class="alert alert-info mt-2 mb-0" role="alert">
+                                <h:outputText value="#{lieuBean.weatherMessage}" escape="false" />
+                            </div>
+                        </h:panelGroup>
+                        
+                        <h:panelGroup rendered="#{empty lieuBean.weatherMessage}">
+                            <div class="alert alert-secondary mt-2 mb-0" role="alert">
+                                <em>Sélectionnez un lieu pour voir la météo en temps réel.</em>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </h:panelGroup>
+
+                <div class="mt-4 d-flex gap-2">
+                    <h:commandLink value="Visiter ce lieu"
+                                   action="#{visiteBean.afficherFormulaireVisite(lieuBean.selectedLieu)}"
+                                   styleClass="btn btn-danger btn-lg" />
+                    
+                    <h:commandButton value="Retour à l'accueil" 
+                                     action="/home?faces-redirect=true" 
+                                     immediate="true"
+                                     styleClass="btn btn-outline-secondary btn-lg" />
+                </div>
+            </h:form>
+        </div>
+
+        <div class="card shadow p-4">
+            <h3 class="mb-4 text-danger">Mon Historique de Visites</h3>
+            
+            <h:dataTable value="#{visiteBean.mesVisites}" var="v" class="table table-striped table-hover">
+                <h:column>
+                    <f:facet name="header">Lieu</f:facet>
+                    #{v.lieu.nom}
+                </h:column>
+    
+                <h:column>
+                    <f:facet name="header">Date de visite</f:facet>
+                    <h:outputText value="#{v.dateVisite}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Africa/Lubumbashi" />
+                    </h:outputText>
+                </h:column>
+    
+                <h:column>
+                    <f:facet name="header">Durée</f:facet>
+                    #{v.tempsPasse}h
+                </h:column>
+    
+                <h:column>
+                    <f:facet name="header">Dépense</f:facet>
+                    <strong>#{v.depense}$</strong>
+        
+                    <f:facet name="footer">
+                        <span class="text-danger fw-bold">Total: #{visiteBean.totalDepenses}$</span>
+                    </f:facet>
+                </h:column>
+    
+                <h:column>
+                    <f:facet name="header">Observation</f:facet>
+                    #{v.observation}
+                </h:column>
+            </h:dataTable>
+
+            <h:panelGroup rendered="#{empty visiteBean.mesVisites}">
+                <div class="alert alert-warning text-center m-0">
+                    Historique vide. Commencez par visiter un lieu !
+                </div>
+            </h:panelGroup>
+        </div>
+    </div>
+</h:body>
+</html>

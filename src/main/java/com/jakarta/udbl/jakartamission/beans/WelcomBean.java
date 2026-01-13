@@ -21,9 +21,7 @@ import jakarta.faces.context.FacesContext;
 @Named("welcomeBean")
 public class WelcomBean {
 
-    // --- INJECTION DU SERVICE MÉTIER ---
-    @Inject
-    private UtilisateurEntrepriseBean utilisateurService;
+   
 
     private String nom;
     private String message;

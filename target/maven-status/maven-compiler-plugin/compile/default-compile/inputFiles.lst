@@ -3,13 +3,15 @@ C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\busines
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\SessionControlFilter.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\beans\WelcomBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\entities\Utilisateur.java
-C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\beans\UtilisateurBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\resources\JakartaEE10Resource.java
+C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\VisiteBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\LieuEntrepriseBean.java
+C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\VisiteEntrepriseBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\SessionManager.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\beans\ConvertisseurMonnaie.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\ProfilBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\beans\NavigationBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\JakartaRestConfiguration.java
+C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\entities\Visite.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\business\UtilisateurEntrepriseBean.java
 C:\netbeans\jakartaMission\src\main\java\com\jakarta\udbl\jakartamission\entities\Lieu.java

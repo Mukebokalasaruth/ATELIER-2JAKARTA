@@ -29,14 +29,12 @@ public class LieuEntrepriseBean {
     public List<Lieu> listerTousLesLieux() {
         return em.createQuery("SELECT l FROM Lieu l", Lieu.class).getResultList();
     }
+    
+   public Lieu trouverLieuParId(Long id) { 
+     return em.find(Lieu.class, id);
+}
 
-    // CORRECTION : Integer ici
-    public Lieu trouverLieu(Integer id) {
-        return em.find(Lieu.class, id);
-    }
-
-    // CORRECTION : Integer ici
-    public void modifierLieu(Integer id, String nom, String description, double latitude, double longitude) {
+    public void modifierLieu(Long id, String nom, String description, double latitude, double longitude) {
         Lieu lieu = em.find(Lieu.class, id);
         if (lieu != null) {
             lieu.setNom(nom);
@@ -48,10 +46,16 @@ public class LieuEntrepriseBean {
     }
 
     // CORRECTION : Integer ici
-    public void supprimerLieu(Integer id) {
+    public void supprimerLieu(Long id) {
         Lieu lieu = em.find(Lieu.class, id);
         if (lieu != null) {
             em.remove(lieu);
+        }
+    }
+
+    public void ajouterLieu(Lieu nouveau) {
+        if (nouveau != null) {
+            em.persist(nouveau);
         }
     }
 }
